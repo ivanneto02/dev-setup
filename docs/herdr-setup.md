@@ -153,7 +153,7 @@ its default `Ctrl+b`. `herdr config check` passed and `herdr server reload-confi
 reported `applied` without diagnostics. The owner confirmed the physical F12
 keypress reaches Herdr. If another terminal intercepts F12, choose another
 Herdr prefix rather than removing familiar Ghostty mappings. tmux still defaults
-to `Ctrl+b` if run nested; the Ghostty/tmux overlap remains. See the
+to `Ctrl+b` if run nested, but tmux is unsupported in this workflow; see the
 [shortcut guide](shortcuts.md).
 
 ## Validation and remaining work

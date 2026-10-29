@@ -29,18 +29,24 @@ last-known-good Pi remains 1.2.0; broader compatibility is unverified.
 - Pi is the interactive coordinator; Limen owns jobs, worktrees and job state.
 - Herdr supplies visibility; see [Herdr setup](herdr-setup.md). A detached job's
   log-tail tab was observed in a disposable trial. Limen retains job ownership.
-- Follow the [ChatGPT-plan model policy](../workflow/model-policy.md) before
+- Follow the [ChatGPT OAuth model policy](../workflow/model-policy.md) before
   launching the coordinator, workers, or reviewers. Only Pi `openai` with a
   ChatGPT-plan OAuth credential is permitted; no OpenAI API key, paid extra usage,
-  proxy, or alternate provider is allowed. If plan entitlement or billing is
-  uncertain, stop before any model request. The local auth check verifies only
-  credential readiness and type, **not** plan entitlement or paid-extra controls.
-- Start with one detached worker or reviewer at a time, a 10-minute timeout and
-  `LIMEN_MAX_TOOL_CALLS=50 LIMEN_PREFLIGHT=auth`. These are execution controls,
-  not a spending cap; one-at-a-time is an operating policy, not configured
-  concurrency enforcement. Hosted jobs have no outer time/tool cap.
-- Pass engine/provider/model/thinking explicitly for every job; the policy
-  specifies role thinking levels and preflight checks. Limen's fallback is
+  proxy, or alternate provider is allowed. The owner approved this route for
+  authorized work; no per-job account-level proof is available. Stop on auth
+  failures or observed billing/entitlement warnings. The local auth check
+  verifies credential readiness and type, **not** plan entitlement or paid-extra
+  controls.
+- Default to one detached worker or reviewer at a time; allow up to three when
+  independent tasks justify the resource use. Short trials use 10 minutes and
+  `LIMEN_MAX_TOOL_CALLS=50 LIMEN_PREFLIGHT=auth`; bounded issue jobs may use
+  20 minutes and 80 calls. These are per-job execution controls, not a spending
+  cap or a seat-wide concurrency guard. Hosted jobs lack detached limits.
+- Use `scripts/limen-oauth.sh worker 'label' 'task'` (or `reviewer`) for a
+  short bounded spawn on the approved route; it rejects API-key auth and
+  provider overrides before starting Limen. For other jobs pass
+  engine/provider/model/thinking explicitly after the policy preflight. The
+  [role policy](../workflow/model-policy.md) describes limits and gaps. Limen's fallback is
   `openai-codex/gpt-6-astra:high`, not Pi's saved default. Never silently switch
   route on a spawn or continuation. Keep credentials in Pi's private user store
   outside Git. Review auth metadata without `--credentials` or token output.

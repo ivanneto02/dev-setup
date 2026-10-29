@@ -12,15 +12,20 @@ is recorded in [workflow/status.md](workflow/status.md).
   document tool responsibilities, shortcuts, configuration sources, and recovery.
 - Keep workflows portable across agent harnesses and avoid overlapping ownership
   of delegation, job state, and completion tracking.
-- Favor the least expensive model that reliably handles the task. ChatGPT-plan
-  OAuth access uses plan limits, not a separately billed API-key route; still
-  conserve tokens and rate limits. Verify each route rather than inferring
-  billing from its provider name. No switch to separately billed API usage or
-  paid extra usage is implicitly authorized.
+- Use only ChatGPT-plan OAuth for Pi and Limen model work. Never use an OpenAI
+  API key, paid API route, or paid extra usage now or as a future fallback.
+  Conserve subscription tokens and rate limits. The role choices and bounded
+  execution policy live in [workflow/model-policy.md](workflow/model-policy.md);
+  verify the route rather than inferring billing from its provider name.
+- Support Arch Linux and macOS as distinct OS profiles without choosing a
+  default target machine. Ghostty is the supported terminal and keeps Ctrl+b;
+  Herdr handles persistence with F12. tmux and Kitty are unsupported historical
+  imports. Bash is the intended shell, but its imported config needs repair
+  before deployment.
 - Focus on local development. Remote development, Tailscale, and repurposing
   another laptop remain deferred.
 
-No preferred target OS, machine profile, provider entitlement, spending budget,
-or concurrency limit has been established for installation yet. The current
-repository preparation task does not authorize changing system settings or
-activating configuration.
+No default target machine or OS/version, macOS restrictions, or separately
+billed spending budget has been established. Do not interpret these preferences
+as permission to change live system settings or apply configuration without an
+exact preview and approval.

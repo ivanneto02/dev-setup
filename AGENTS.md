@@ -229,9 +229,11 @@ A recommendation to keep the current setup is a successful maintenance result.
   When a subscription route is verified for the task, authorized subagents may
   use it without separate approval for each worker. Do not assume a past
   task-specific model choice is a permanent default for unrelated work.
-- Never silently switch to separately billed API usage, enable paid extra usage,
-  or increase an agreed spending limit. Ask first when the route or billing is
-  uncertain. Conserve subscription-plan tokens and rate limits: delegate only
+- Follow the owner's route ban in `preferences.md` and the role choices in
+  `workflow/model-policy.md`: OpenAI API keys, separately billed API routes and
+  paid extra usage are not supported, even as a fallback. Do not treat an ask
+  for a model as permission to change that rule. If route/auth checks fail, stop.
+  Conserve subscription-plan tokens and rate limits: delegate only
   when useful, bound worker time and concurrency, and avoid redundant calls.
 - Prefer the least expensive model that reliably meets the task's requirements.
 - Escalate to stronger models when complexity or observed failures justify it.

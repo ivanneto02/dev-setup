@@ -11,7 +11,7 @@ The imported configuration now lives under `config/`, organized by tool. File
 contents and the Neovim plugin lockfile are preserved. These are ordinary files
 owned by this repository, not submodules or links to live configuration.
 
-None of the imported configurations has been linked or applied to the machine.
+None of the imported configurations has been linked or applied by this repository to the machine.
 Pi, Limen's CLI, and Herdr are installed at user level on this host; see
 [the Limen trial results](docs/limen-setup.md) and
 [Herdr installation and usage](docs/herdr-setup.md). Herdr's bundled Pi integration
@@ -20,8 +20,8 @@ were observed on this host. Herdr's live user config now uses `F12` as its prefi
 instead of conflicting with Ghostty's unchanged `Ctrl+b` shortcuts; the owner
 verified the F12 keypress. Limen is now initialized in this repository, with
 project hook stubs, planning files and ignored runtime state. A fresh Pi launch
-(or `/reload`) is needed to load the project hook in a session; no worker has
-run in `dev-setup` and recovery remains untested. A selective, preview-first
+(or `/reload`) is needed to load the project hook in a session; delegated jobs
+have since run in `dev-setup`, but recovery remains untested. A selective, preview-first
 [configuration deployment script](docs/deploy-config.md) now supports Arch and
 macOS file linking, but does not install tools or validate the full stack.
 `workflow update` remains unavailable. The candidate stack has a narrow
@@ -33,11 +33,14 @@ successful trial, not full validation.
 | `config/nvim/lazy-lock.json` | Preserved plugin revisions for that configuration |
 | `config/nvim/init.lua-mobile` | Separate alternative using `vim.pack`; not selected automatically |
 | `config/ghostty/` | Ghostty configuration |
-| `config/kitty/` | Kitty configuration, themes, and original backup |
+| `config/kitty/` | Archived Kitty configuration, themes, and original backup; unsupported |
 | `config/bash/.bashrc` | Imported Bash configuration |
-| `config/tmux/.tmux.conf` | Imported tmux configuration |
+| `config/tmux/.tmux.conf` | Archived tmux configuration; unsupported |
 | `preferences.md` | Durable environment preferences |
 | `workflow/status.md` | Implementation status and open decisions |
+| `workflow/model-policy.md` | OAuth-only role routes and bounded worker rules |
+| `profiles/arch-linux.md`, `profiles/macos.md` | OS profiles without a default target |
+| `docs/profile-ownership.md`, `docs/terminal-policy.md` | Configuration ownership and terminal decisions |
 | `spec/` | Limen project vision, board, and feature lanes (planning committed to Git) |
 | `.agents/limen/styleguide.md` | Limen project writing conventions; `AGENTS.md` remains authoritative |
 | `.pi/extensions/limen.ts`, `.omp/extensions/limen.ts` | Limen package hook loaders for Pi and OMP (OMP unused) |
@@ -45,13 +48,15 @@ successful trial, not full validation.
 | `agents/skills/` | Portable skill sources: `explain-config` and `end-to-end` |
 | `.agents/skills/deploy-config/SKILL.md` | Project-discoverable deployment skill (separate from portable skill sources) |
 | `scripts/deploy-config.sh` | Selective, preview-first user-file deployment for Arch and macOS |
+| `scripts/limen-oauth.sh` | Bounded OAuth-only worker/reviewer launch; not a billing guarantee |
+| `scripts/test-*.sh` | Disposable-home deployment and mocked-auth launch checks |
 | `docs/deploy-config.md` | Destinations, approval, validation, limits, and rollback |
 | `docs/import-baseline.md` | Import provenance, validation, limitations, and next steps |
 | `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
 | `docs/herdr-setup.md` | Herdr installation, Pi integration, usage, validation limits, and recovery |
 
-`profiles/` is intentionally empty: no target-machine profile is established.
-`scripts/` contains only selective user-file activation, not tool installation
+`profiles/` contains candidate Arch and macOS OS profiles; no default machine
+is selected. `scripts/` contains only selective user-file activation, not tool installation
 or a complete setup. Empty directories are not tracked by Git. Repository
 instructions remain in AGENTS.md.
 

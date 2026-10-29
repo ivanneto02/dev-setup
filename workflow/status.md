@@ -1,52 +1,46 @@
 # Workflow status
 
-Updated 2026-10-29. This records repository state, not an inventory of installed
-applications. See [preferences](../preferences.md) for desired outcomes and
-[import notes](../docs/import-baseline.md) for provenance and validation.
+Updated 2026-10-29. This records repository state and checks on the current Arch
+host, not a guarantee about another machine. See [preferences](../preferences.md),
+[OS profiles](../docs/profile-ownership.md), [terminal policy](../docs/terminal-policy.md),
+and [model policy](model-policy.md) for decisions and boundaries.
 
-| Component | Repository state |
+| Component | State |
 | --- | --- |
-| Neovim | Imported main and mobile configurations; main lazy.nvim lockfile preserved |
-| Ghostty | Imported configuration; candidate terminal in AGENTS.md |
-| Kitty | Imported configuration and themes retained from the source |
-| Bash | Imported configuration with machine-specific CUDA paths and NVM loading |
-| tmux | Imported configuration referencing TPM; no plugins installed by this repo |
-| Pi | Installed on this host; fullscreen coordinator in Herdr and bounded `openai/gpt-6-sol` Limen worker tested; no repo-managed adapter |
-| Limen | User-level CLI installed; initialized in `dev-setup` with project planning and Pi/OMP hook stubs; jobs were tested only in a disposable repo, not here; see [setup and trial](../docs/limen-setup.md) |
-| Herdr | 0.9.5 installed with bundled Pi integration v9; server running during trial, Limen log-tail tab observed; live user config prefix changed to F12 (owner verified keypress); see [setup notes](../docs/herdr-setup.md) |
+| Neovim | Main lazy.nvim config and lockfile preserved; proposed baseline for both OS profiles. Mobile vim.pack alternative deferred. Main startup and plugin effects unverified. |
+| Ghostty | Sole supported terminal; repo config keeps Ctrl+b. Arch 1.4.0 parsed candidate bindings match the unique live Ctrl+b set; nested GUI navigation and macOS runtime unverified. Existing Arch live file is not linked to this repo. |
+| Kitty / tmux | Installed on this Arch host but unsupported archival imports. The deployment script rejects both. |
+| Bash | Intended shell; imported `.bashrc` still has unsafe machine-specific CUDA, TERM, and NVM assumptions. Not deployable yet. |
+| Pi | 1.4.0 installed on this host, running in Herdr. Project Limen hooks load at Pi startup or `/reload`. The portable explain-config and end-to-end skill sources are not configured for automatic discovery. |
+| Limen | User-level CLI and project hooks installed; several bounded issue jobs ran in `dev-setup`. Job logs/state are ignored; workers use separate Git worktrees. Recovery and review jobs still untested. |
+| Herdr | 0.9.5 with Pi integration v9; live user config F12 prefix confirmed by owner. Detached Limen jobs open log-tail tabs in a worker workspace, not recognized agent panes; tabs close after completion. See [visibility guide](../docs/herdr-setup.md#finding-limen-workers-in-herdr). |
+| Deploy script | `scripts/deploy-config.sh` previews/links only Neovim and Ghostty user files on Arch/macOS after explicit target selection and approval. Temporary-home Arch checks passed; Mac runtime and live deployment remain untested. |
 
-`workflow update` is a proposed interface and is **not implemented**. A
-preview-first, selective user-file deployment script exists at
-`scripts/deploy-config.sh` with a project skill in `.agents/skills/deploy-config/`.
-It supports Arch Linux and macOS file destinations, not tool installation or
-full-stack activation. Bash is excluded until its imported machine-specific
-settings are repaired; Kitty is blocked on macOS. Full setup, profile selection,
-model routing, and resource-limit enforcement are not implemented. Limen's project hook stubs make delegation
-available after Pi loads them, but do not automatically start jobs. Limen and Herdr upstream installation
-guidance was reviewed; a disposable Pi/Limen/Herdr job and its log-tail tab worked,
-but broader compatibility and recovery remain untested. Limen owns delegated jobs
-and worktrees; Herdr supplies terminal persistence and visibility, not a second
-job manager. Ghostty retains Ctrl+b; Herdr's live user config now sets F12,
-whose physical keypress the owner confirmed.
+`profiles/arch-linux.md` and `profiles/macos.md` describe two OS choices. The owner
+intentionally left the default target machine/OS unspecified; select and inspect
+the actual machine before activation. No full installation automation exists, and
+none of the imported tool configurations was deployed by this repository.
+`workflow update` is proposed and **not implemented**.
 
-Before implementing setup, select the target machine and OS, inspect its existing
-configuration, and establish installation destinations and override precedence.
-Then resolve machine-specific settings and validate the imported configurations
-in isolation. The original setup guide is archived as historical documentation,
-not an installation procedure.
+The owner selected ChatGPT-plan OAuth only; no OpenAI API keys, separately billed
+API routes or paid extra usage. [Role policy](model-policy.md) defines coordinator,
+worker and reviewer choices and execution limits. Pi auth metadata confirmed
+`openai/gpt-6-sol` OAuth readiness on this Arch host; it cannot prove account
+billing or hard-enforce a spending cap. `scripts/limen-oauth.sh` checks the route
+and rejects API-key/proxy overrides for its own bounded job launches; direct
+Pi/Limen invocations still require the policy preflight. Stop rather than falling back to an API key or another provider.
 
-The portable skills at `agents/skills/explain-config/SKILL.md` and
-`agents/skills/end-to-end/SKILL.md` are available for explicit file-based use.
-The project skill at `.agents/skills/deploy-config/SKILL.md` was listed by a
-trusted Pi startup on this Arch host; existing sessions need `/reload`.
-The latter favors completing implementation without step-by-step approval, but
-requires explicit approval before changing the live environment. The two portable skills are not configured for harness discovery or Pi runtime
-validation. The deployment skill has not been tested on macOS. The [shortcut guide](../docs/shortcuts.md)
-covers the main Neovim, Ghostty, and tmux configuration using static inspection
-and selected locked plugin sources; mappings are not runtime-verified.
+Ghostty owns tabs/splits, Herdr owns persistence/agent visibility, and Limen owns
+job state/worktrees. tmux is not part of this workflow. The Herdr F12 prefix
+was confirmed, but UI workspace-picker keys, hosted worker badges, detach/restart
+recovery and nested Ghostty/Neovim key delivery remain unverified. Do not equate
+a running Herdr log tab with a tracked agent or a completed job with validated
+artifacts. See [Limen trial evidence](../docs/limen-setup.md) and
+[shortcut gaps](../docs/shortcuts.md).
 
-Keep `profiles/` empty until target-machine decisions produce concrete content.
-See [deployment scope and rollback](../docs/deploy-config.md) before applying any
-configuration. Shared repository instructions stay in AGENTS.md rather than
-being copied into an agent adapter. Candidate tools should be evaluated before
-adding integrations or another owner of job state.
+Before a macOS deployment, inspect installed versions, managed-device rules,
+active config paths and application overrides. Test selected tools in isolation;
+do not assume Linux paths, binaries, or bindings apply on the Mac. Setup changes
+need an exact preview, approval, checks and rollback. No hard concurrency or
+spending enforcement was added; the model policy's limits are per-job controls
+and operating rules.
