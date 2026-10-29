@@ -28,9 +28,11 @@ Then resolve machine-specific settings and validate the imported configurations
 in isolation. The original setup guide is archived as historical documentation,
 not an installation procedure.
 
-The portable starter skill at `agents/skills/explain-config/SKILL.md` is available
-for manual editing and explicit file-based use. Harness discovery and Pi runtime
-validation are not configured. The [shortcut guide](../docs/shortcuts.md) now
+The portable skills at `agents/skills/explain-config/SKILL.md` and
+`agents/skills/end-to-end/SKILL.md` are available for explicit file-based use.
+The latter favors completing implementation without step-by-step approval, but
+requires explicit approval before changing the live environment. Harness discovery
+and Pi runtime validation are not configured. The [shortcut guide](../docs/shortcuts.md)
 covers the main Neovim, Ghostty, and tmux configuration using static inspection
 and selected locked plugin sources; mappings are not runtime-verified.
 

@@ -32,7 +32,7 @@ an unvalidated proposal.
 | `config/tmux/.tmux.conf` | Imported tmux configuration |
 | `preferences.md` | Durable environment preferences |
 | `workflow/status.md` | Implementation status and open decisions |
-| `agents/skills/` | Portable skill sources; currently `explain-config` |
+| `agents/skills/` | Portable skill sources: `explain-config` and `end-to-end` |
 | `docs/import-baseline.md` | Import provenance, validation, limitations, and next steps |
 | `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
 | `docs/herdr-setup.md` | Herdr installation, Pi integration, usage, validation limits, and recovery |
@@ -41,12 +41,13 @@ an unvalidated proposal.
 profile or setup automation has been implemented. Empty
 directories are not tracked by Git. Repository instructions remain in AGENTS.md.
 
-The starter [explain-config skill](agents/skills/explain-config/SKILL.md) documents
-configuration and shortcuts. It is not installed into a harness discovery path
-or verified in Pi yet. To try it without installation, ask Pi to read that file
-and follow it to refresh [the shortcut guide](docs/shortcuts.md). The initial guide
-is based on static configuration and pinned plugin-source inspection, not runtime
-verification.
+The [explain-config skill](agents/skills/explain-config/SKILL.md) documents
+configuration and shortcuts; the [end-to-end skill](agents/skills/end-to-end/SKILL.md)
+guides autonomous implementation while requiring explicit approval before live
+environment changes. These are repository sources, not installed into a harness
+discovery path or verified in Pi. To use either without installation, ask Pi to
+read its `SKILL.md` and follow it. The initial shortcut guide is based on static
+configuration and pinned plugin-source inspection, not runtime verification.
 
 The imported [README](docs/nvim-config-original-readme.md) is historical: its vim-plug and
 `PlugInstall` instructions do not describe the main configuration's lazy.nvim
