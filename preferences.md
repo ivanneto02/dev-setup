@@ -19,8 +19,9 @@ is recorded in [workflow/status.md](workflow/status.md).
   verify the route rather than inferring billing from its provider name.
 - Support Arch Linux and macOS as distinct OS profiles without choosing a
   default target machine. The Arch host running this Pi session is the current
-  target for inspection, not an authorization to deploy. Ghostty is the
-  supported terminal and keeps Ctrl+b;
+  target for inspection, not an authorization to deploy. The owner says it is
+  personally controlled, with no managed-device restrictions on user-level
+  configuration. Ghostty is the supported terminal and keeps Ctrl+b;
   Herdr handles persistence with F12. tmux and Kitty are unsupported historical
   imports. Bash is the intended shell, but its imported config needs repair
   before deployment.

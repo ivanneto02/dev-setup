@@ -18,8 +18,10 @@ and [model policy](model-policy.md) for decisions and boundaries.
 
 `profiles/arch-linux.md` and `profiles/macos.md` describe two OS choices. The
 owner identified this Arch host as the current target for inspection, but left
-the default machine/OS unspecified. This selection is not deployment approval;
-inspect the exact live destinations and restrictions before activation. No full installation automation exists, and
+the default machine/OS unspecified. The owner confirmed no managed-device
+restrictions on this personally controlled Arch host's user-level configuration.
+This selection is not deployment approval; inspect exact live destinations
+before activation. No full installation automation exists, and
 none of the imported tool configurations was deployed by this repository.
 `workflow update` is proposed and **not implemented**.
 

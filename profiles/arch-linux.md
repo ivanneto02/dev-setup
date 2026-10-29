@@ -1,6 +1,6 @@
 # Arch Linux candidate profile
 
-This is one supported OS profile, not the default machine or OS. On 2026-10-29 the owner selected the Arch machine running Pi as the **current target for inspection and local workflow decisions**. That choice does not approve deployment or make Arch the default for later work. Inspect restrictions and live files and obtain approval for the exact preview before applying configuration. See [ownership and precedence](../docs/profile-ownership.md).
+This is one supported OS profile, not the default machine or OS. On 2026-10-29 the owner selected the Arch machine running Pi as the **current target for inspection and local workflow decisions**. The owner confirmed it is personally controlled with no managed-device restrictions on user-level configuration. That choice does not approve deployment or make Arch the default for later work. Obtain approval for the exact preview before applying configuration. See [ownership and precedence](../docs/profile-ownership.md).
 
 | Tool | Repository source | Proposed user destination | Status / boundary |
 | --- | --- | --- | --- |
