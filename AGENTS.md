@@ -109,6 +109,14 @@ harness-specific configuration behind clearly identified adapters.
 
 Work independently on authorized, reversible tasks.
 
+Use available CLI tools proactively within the authorized task. Prefer `git`
+for local repository operations, `gh` for GitHub operations, and `rg` for file
+and text searches. These are examples, not an exhaustive list; no skill is
+required for ordinary CLI usage. Check tool availability and relevant
+authentication in the execution environment when needed. Run commands yourself
+when access permits rather than asking the user to run them. Tool availability
+does not expand authorization or bypass execution permissions.
+
 Before a substantial task, establish:
 
 - The desired outcome.
@@ -252,9 +260,27 @@ Do not report checks as passing unless they were run successfully.
 If the target system is unavailable, explain what was verified locally and what
 still needs validation there.
 
+## Commit organization
+
+When committing, separate logically independent changes into focused commits
+when that improves review or rollback. Keep each commit coherent: include the
+implementation, its tests, and directly related documentation together. Do not
+split tightly coupled changes merely to make smaller commits.
+
+Stage only the files or hunks intended for each commit. Preserve unrelated work,
+use descriptive commit messages, and validate each commit as appropriate. This
+rule does not itself authorize committing, pushing, or rewriting history.
+
 ## Documentation and change reporting
 
-Update affected documentation in the same change as implementation.
+Whenever changes are made, review and update the relevant documentation in
+the same change. This applies to configuration, scripts, tools, workflows, and
+repository organization—not only code implementation.
+
+Check affected guides, README links, shortcut references, implementation status,
+and recovery instructions. Keep claims aligned with what is implemented and
+verified. Update only documentation affected by the change; if none needs an
+update, say so briefly in the completion report.
 
 For significant decisions, record the problem, selected approach, meaningful
 alternatives, and reasons to reconsider later.
