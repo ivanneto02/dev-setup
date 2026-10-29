@@ -12,7 +12,7 @@ and [model policy](model-policy.md) for decisions and boundaries.
 | Kitty / tmux | Installed on this Arch host but unsupported archival imports. The deployment script rejects both. |
 | Bash | Intended shell; imported `.bashrc` still has unsafe machine-specific CUDA, TERM, and NVM assumptions. Not deployable yet. |
 | Pi | 1.4.0 installed on this host, running in Herdr. Project Limen hooks load at Pi startup or `/reload`. The portable explain-config and end-to-end skill sources are not configured for automatic discovery. |
-| Limen | User-level CLI and project hooks installed; several bounded issue jobs ran in `dev-setup`. Job logs/state are ignored; workers use separate Git worktrees. Recovery and review jobs still untested. |
+| Limen | User-level CLI and project hooks installed; bounded issue workers and an independent review job ran in `dev-setup`. Job logs/state are ignored; workers use separate Git worktrees. Coordinator restart/recovery remains untested. |
 | Herdr | 0.9.5 with Pi integration v9; live user config F12 prefix confirmed by owner. Detached Limen jobs open log-tail tabs in a worker workspace, not recognized agent panes; tabs close after completion. See [visibility guide](../docs/herdr-setup.md#finding-limen-workers-in-herdr). |
 | Deploy script | `scripts/deploy-config.sh` previews/links only Neovim and Ghostty user files on Arch/macOS after explicit target selection and approval. Temporary-home Arch checks passed; Mac runtime and live deployment remain untested. |
 

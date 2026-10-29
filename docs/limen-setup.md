@@ -53,7 +53,9 @@ last-known-good Pi remains 1.2.0; broader compatibility is unverified.
   outside Git. Review auth metadata without `--credentials` or token output.
 - The first trial was a documentation task in a disposable Git repository with a
   committed baseline. Several bounded issue workers later ran in `dev-setup`;
-  this verifies launch and completion here, not coordinator recovery or review.
+  this verifies launch and completion here, not coordinator recovery. An
+  independent review job later ran through `scripts/limen-oauth.sh reviewer`;
+  it reported an open target-selection check rather than approving the candidate.
   Trial results and remaining gaps are below.
 - Review artifacts and checks, not merely a `done` status. Merging remains
   subject to explicit owner approval.
