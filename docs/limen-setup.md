@@ -29,18 +29,21 @@ last-known-good Pi remains 1.2.0; broader compatibility is unverified.
 - Pi is the interactive coordinator; Limen owns jobs, worktrees and job state.
 - Herdr supplies visibility; see [Herdr setup](herdr-setup.md). A detached job's
   log-tail tab was observed in a disposable trial. Limen retains job ownership.
-- Start with one detached worker at a time, a 10-minute timeout and
-  `LIMEN_MAX_TOOL_CALLS=50`. These are execution controls, not a spending cap;
-  one-at-a-time is an operating policy, not configured concurrency enforcement.
-- Pass engine/provider/model/thinking explicitly. The owner selected
-  `openai/gpt-6-sol` with `medium` thinking for the bounded trial. A later
-  `pi auth check --provider openai --model gpt-6-sol --json --no-refresh`
-  reported `authType: oauth`; `openai-codex` had no configured credentials.
-  This is the signed-in plan route, not evidence of separately billed API-key
-  usage. Check current authentication and entitlement before future jobs and
-  conserve plan tokens; the trial model is not a permanent default. Limen's
-  fallback is `openai-codex/gpt-6-astra:high`, not Pi's saved default. Never
-  silently switch provider or billing route.
+- Follow the [ChatGPT-plan model policy](../workflow/model-policy.md) before
+  launching the coordinator, workers, or reviewers. Only Pi `openai` with a
+  ChatGPT-plan OAuth credential is permitted; no OpenAI API key, paid extra usage,
+  proxy, or alternate provider is allowed. If plan entitlement or billing is
+  uncertain, stop before any model request. The local auth check verifies only
+  credential readiness and type, **not** plan entitlement or paid-extra controls.
+- Start with one detached worker or reviewer at a time, a 10-minute timeout and
+  `LIMEN_MAX_TOOL_CALLS=50 LIMEN_PREFLIGHT=auth`. These are execution controls,
+  not a spending cap; one-at-a-time is an operating policy, not configured
+  concurrency enforcement. Hosted jobs have no outer time/tool cap.
+- Pass engine/provider/model/thinking explicitly for every job; the policy
+  specifies role thinking levels and preflight checks. Limen's fallback is
+  `openai-codex/gpt-6-astra:high`, not Pi's saved default. Never silently switch
+  route on a spawn or continuation. Keep credentials in Pi's private user store
+  outside Git. Review auth metadata without `--credentials` or token output.
 - First trial was a documentation task in a disposable Git repository with a
   committed baseline. Results and remaining gaps are below.
 - Review artifacts and checks, not merely a `done` status. Merging remains
@@ -61,6 +64,8 @@ process cleanup. See the installed `SECURITY.md` and `docs/jobs.md`.
   `openai/gpt-6-sol` ready before launch. One detached worker at a time ran via
   `LIMEN_MAX_TOOL_CALLS=50 LIMEN_PREFLIGHT=auth limen spawn --engine pi
   --provider openai --model gpt-6-sol --thinking medium --timeout 10m`.
+  This trial predates the role policy. Its ready OAuth check did not establish
+  plan entitlement or paid-extra settings for future launches.
   The first job finished in 56 seconds using 12 tool calls. It added only a
   `Usage` section to the disposable README; worktree `git diff --check` passed.
 - A detached continuation, explicitly routed to the same provider/model and
@@ -118,8 +123,9 @@ On this Linux host the installed launcher resolves that package. On macOS, insta
 PATH, Node >=24, and hook compatibility must be validated separately rather
 than assuming these stubs work there. Pi discovers project extensions at startup
 or `/reload`; an already-running session is not automatically reloaded. Do not
-start a job without an explicit approved provider/model/thinking route and
-execution limits. No hard spending cap or concurrency enforcement was added.
+start a job without the [policy](../workflow/model-policy.md) preflight, an
+explicit approved provider/model/thinking route and execution limits. No hard
+spending cap or concurrency enforcement was added.
 
 To undo only this project initialization, first stop/inspect any jobs, then
 remove the generated `spec/`, `.agents/limen/`, `.pi/extensions/limen.ts`,
