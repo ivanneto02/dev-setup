@@ -11,8 +11,8 @@ Limen documents detached workers launched in Herdr as **log-tail tabs**, not
 interactive agent terminals. Its `--tab` mode is for interactive hosted workers.
 Herdr does not automatically discover and display every arbitrary background
 process launched elsewhere. The tested path starts the coordinator in a Herdr pane and lets Limen create
-log-tail job views. A disposable-repository trial confirmed that path; Limen
-has not been initialized in `dev-setup`.
+log-tail job views. A disposable-repository trial confirmed that path; current
+`dev-setup` job records also show detached workers in Herdr log-tail tabs.
 
 Closing a client/detaching leaves the Herdr server's terminal processes running.
 A machine/server restart does not preserve the original processes. Supported
@@ -83,6 +83,66 @@ detach sequence itself has not been tested. The upstream default is `Ctrl+b → 
 To **stop the server and its panes**, use `herdr server stop` only after
 intentionally stopping or handing
 off active work. Detaching and stopping are not interchangeable.
+
+## Finding Limen workers in Herdr
+
+A default `limen spawn` is detached, even when its coordinator runs in Herdr.
+Limen runs the worker outside the pane and opens a **log-tail tab** in a job
+workspace. That tab displays output; it is not an agent terminal. Do not expect
+this worker in Herdr's agent list. The coordinator's own Pi pane can appear
+there instead.
+
+For job state, run these from the **main project root** (not a job worktree):
+
+```sh
+cd ~/dev-setup
+limen jobs --running         # current running jobs
+limen jobs <id>              # one job's state and recent log
+limen jobs --all             # include older records
+```
+
+In the Herdr UI, use the workspace picker (`F12`, release, then `w` on this
+host), or expand the sidebar (`F12`, release, then `b`) and select the
+`dev-setup workers · /home/ivan/dev-setup` workspace. Select the tab labelled
+`<job label> · running` to read its log. The upstream default prefix is
+`Ctrl+b`, not this host's `F12`. The workspace picker and sidebar bindings
+come from `herdr --default-config`; these particular navigation keystrokes
+have **not** been exercised in the live UI. From any terminal, inspect the
+same live layout without changing focus:
+
+```sh
+herdr workspace list
+herdr tab list --workspace <workspace_id>
+herdr agent list
+```
+
+`herdr agent list` lists detected agent panes, not Limen jobs. On this host it
+listed the coordinator Pi pane while the running detached job appeared as a
+tab in the worker workspace, with no worker agent row. Herdr can mark the
+log-tail workspace's status `unknown`; that is not the job's Limen state.
+A job tab is temporary. Limen closes it on completion and can close its
+workspace when no tabs remain. Earlier `dev-setup` job logs record these
+closures. The job record and log remain under the main project's
+`.limen/jobs/<id>/`. If the tab has closed, `limen jobs <id>` still gives
+state and recent log; `limen open <id>` can open a log view in Herdr, but
+**does not resurrect a hosted worker**. A failed tab close can leave an old
+tab behind, so an open tab alone does not prove a job is running.
+
+No Herdr restart, config edit, server reload, or Pi `/reload` is needed to make
+a detached worker appear in the agent list: it is not running in a Herdr agent
+pane. The installed Pi integration reports `current (v9)` and the coordinator
+is detected. Reloading Pi is relevant only after installing/changing a Pi
+extension; it does not convert a detached log tail into an agent.
+
+For a **new** interactive job, `limen spawn --tab …` starts the selected engine
+inside its Herdr tab (Herdr required). A person can type into that worker;
+Herdr's agent detection can then report the supported agent pane. This is
+not a display toggle for existing detached jobs. Hosted jobs refuse
+`--timeout` and lack the detached harness's timeout, tool-call cap and process
+containment. They must call `finish` to end the Limen job; an idle pane is not
+completion. Use hosted mode only when direct interaction is needed. This job
+did not start a hosted worker, so the exact agent-list row and sidebar badge
+for a new hosted worker on this host remain unverified.
 
 ## Shortcut ownership
 
@@ -164,3 +224,10 @@ and test compatibility with the saved runtime state rather than assuming it.
   installation; commands were checked against the installed release.
 - Installed Limen revision `3419a4ca62eb3de413e30fc3c417952ff3c20847`, `docs/setup.md`;
   installed Pi 1.4.0 configuration/extension docs and API declarations.
+- For worker visibility: installed Herdr 0.9.5 `--default-config`, `workspace list`,
+  `tab list`, `agent list` and `integration status`; installed Limen
+  `src/integrations/herdr.ts` (`openWatchTab`, `createTab`, `settleJobTab`,
+  `openJobPlace`), `templates/worker.md` and `templates/agents.md`.
+  Read-only live `dev-setup` job records under `.limen/jobs/` and Herdr server
+  log under `~/.config/herdr/` confirmed the running log tab and prior closes.
+  UI navigation and hosted agent rendering were not tested in this investigation.
