@@ -42,7 +42,8 @@ last-known-good Pi remains 1.2.0; broader compatibility is unverified.
   `LIMEN_MAX_TOOL_CALLS=50 LIMEN_PREFLIGHT=auth`; bounded issue jobs may use
   20 minutes and 80 calls. These are per-job execution controls, not a spending
   cap or a seat-wide concurrency guard. Hosted jobs lack detached limits.
-- Use `scripts/limen-oauth.sh worker 'label' 'task'` (or `reviewer`) for a
+- Use `scripts/limen-oauth.sh worker 'label' 'task'` or
+  `scripts/limen-oauth.sh reviewer BRANCH 'label' 'review task'` for a
   short bounded spawn on the approved route; it rejects API-key auth and
   provider overrides before starting Limen. For other jobs pass
   engine/provider/model/thinking explicitly after the policy preflight. The

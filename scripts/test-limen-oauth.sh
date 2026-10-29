@@ -13,8 +13,10 @@ export MOCK_AUTH='{"status":"ready","provider":"openai","authType":"oauth"}'
 "$root/scripts/limen-oauth.sh" worker 'trial' 'edit docs' >/dev/null
 [[ $(grep -A1 -- '--thinking' "$tmp/call" | tail -1) = medium ]]
 [[ $(grep -A1 -- '--provider' "$tmp/call" | tail -1) = openai ]]
-"$root/scripts/limen-oauth.sh" reviewer 'review' 'check diff' >/dev/null
+"$root/scripts/limen-oauth.sh" reviewer 'limen/integrate-issues' 'review' 'check diff' >/dev/null
 [[ $(grep -A1 -- '--thinking' "$tmp/call" | tail -1) = high ]]
+grep -Fx -- '--review' "$tmp/call" >/dev/null
+grep -Fx -- 'limen/integrate-issues' "$tmp/call" >/dev/null
 rm "$tmp/call"
 export MOCK_AUTH='{"status":"ready","provider":"openai","authType":"api_key"}'
 if "$root/scripts/limen-oauth.sh" worker trial edit >/dev/null 2>&1; then echo 'API key route allowed' >&2; exit 1; fi
