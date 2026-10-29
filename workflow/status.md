@@ -13,11 +13,14 @@ applications. See [preferences](../preferences.md) for desired outcomes and
 | tmux | Imported configuration referencing TPM; no plugins installed by this repo |
 | Pi | Installed on this host; owner reports fullscreen UI and gpt-6-astra medium working; no repo-managed adapter |
 | Limen | User-level CLI installed; startup and hook discovery paths checked, no project initialization or workers tested; see [installation notes](../docs/limen-setup.md) |
-| Herdr | Candidate only; not installed by this setup |
+| Herdr | 0.9.5 installed at user level with bundled Pi integration v9; checksum/CLI/extension-loader checks passed; server not started and live Limen integration untested; see [setup notes](../docs/herdr-setup.md) |
 
 `workflow update` is a proposed interface and is **not implemented**. Setup,
 profile selection, model routing, delegation, and resource-limit enforcement are
-also not implemented. Limen upstream installation and security documentation were reviewed; end-to-end Pi compatibility remains untested.
+also not implemented. Limen and Herdr upstream installation guidance was reviewed;
+end-to-end Pi/Limen/Herdr compatibility remains untested. Limen owns delegated jobs
+and worktrees; Herdr supplies terminal persistence and visibility, not a second
+job manager. Ghostty/Herdr Ctrl+b conflicts need a deliberate configuration decision.
 
 Before implementing setup, select the target machine and OS, inspect its existing
 configuration, and establish installation destinations and override precedence.

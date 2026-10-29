@@ -9,6 +9,10 @@ plugins were installed. **None of these shortcuts is runtime-verified here.**
 
 The mobile Neovim alternative, Kitty, shell shortcuts, and Pi bindings are out
 of scope. This is not an exhaustive list of application/plugin defaults.
+Herdr was installed later; its default prefix and Ghostty conflicts are recorded
+in [Herdr setup](herdr-setup.md#shortcut-conflict-decide-before-relying-on-keyboard-navigation).
+Those defaults have not been adopted as repository-managed mappings or verified
+interactively.
 
 Source abbreviations used in the tables (line numbers refer to these files):
 
@@ -226,6 +230,7 @@ In particular, this guide does not invent a session-switch or TPM-install key.
 
 | Interaction | Static finding | Runtime status / next check |
 | --- | --- | --- |
+| Ghostty/tmux vs Herdr | Installed Herdr 0.9.5 also defaults to `Ctrl+b`, with overlapping navigation sequences. Some meanings differ (notably `v` and `s`). | Documented defaults only; see [Herdr setup](herdr-setup.md). Test and choose prefix ownership before relying on nested keyboard navigation. |
 | Ghostty vs tmux | Both use `Ctrl+b → h/j/k/l` if tmux retains its documented default prefix. Ghostty is the outer input layer and may handle sequences before tmux. | Potential interception, not demonstrated. Compare outside/inside tmux; inspect the actual prefix and prefix-table bindings. |
 | Ghostty/tmux vs completion | `Ctrl+b` is also Neovim completion documentation-scroll. Both outer layers may prevent it reaching Neovim. | Test in a completion menu with documentation visible, with and without tmux. Do not change bindings preemptively. |
 | Comment operator vs toggler | Normal-mode `\cl` and `\cbl` are overwritten by togglers in the locked plugin setup order. | Source-confirmed collision; inspect effective Normal and Visual mappings after plugin load. |

@@ -12,9 +12,12 @@ contents and the Neovim plugin lockfile are preserved. These are ordinary files
 owned by this repository, not submodules or links to live configuration.
 
 None of the imported configurations has been linked or applied to the machine.
-Pi is installed, and Limen's CLI has now been installed at user level; see
-[the Limen installation and trial plan](docs/limen-setup.md). No Limen project
-hooks or workers have been activated. There is no setup script or implemented
+Pi, Limen's CLI, and Herdr are installed at user level on this host; see
+[the Limen trial plan](docs/limen-setup.md) and
+[Herdr installation and usage](docs/herdr-setup.md). Herdr's bundled Pi integration
+is installed, but live agent visibility and recovery remain untested. No Herdr
+server is running from this installation, and no Limen project hooks or workers
+have been activated. There is no setup script or implemented
 `workflow update` command yet. The complete candidate stack in AGENTS.md remains
 an unvalidated proposal.
 
@@ -32,6 +35,7 @@ an unvalidated proposal.
 | `agents/skills/` | Portable skill sources; currently `explain-config` |
 | `docs/import-baseline.md` | Import provenance, validation, limitations, and next steps |
 | `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
+| `docs/herdr-setup.md` | Herdr installation, Pi integration, usage, validation limits, and recovery |
 
 `profiles/` and `scripts/` are intentionally empty for now: no target
 profile or setup automation has been implemented. Empty

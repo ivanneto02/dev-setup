@@ -28,7 +28,9 @@ compatibility remains to be tested.
 ## Proposed first workflow (not activated)
 
 - Pi is the interactive coordinator; Limen owns jobs, worktrees and job state.
-- Do not add Herdr until detached jobs demonstrate a need for its UI.
+- Herdr has subsequently been installed at the owner's request for visibility;
+  see [Herdr setup](herdr-setup.md). Its Pi integration is installed, but detached
+  job tabs and end-to-end behavior are still untested. Limen retains job ownership.
 - Start with one detached worker at a time, a 10-minute timeout and
   `LIMEN_MAX_TOOL_CALLS=50`. These are execution controls, not a spending cap;
   one-at-a-time is an operating policy, not configured concurrency enforcement.
@@ -48,9 +50,9 @@ process cleanup. See the installed `SECURITY.md` and `docs/jobs.md`.
 
 ## Before initializing dev-setup
 
-The repository currently has no commits and its baseline files are untracked.
-Do not start workers against it yet. Review and commit the intended baseline
-with owner approval first, then deliberately integrate `limen init` output:
+The initial baseline was subsequently committed and pushed (`9683e05`), followed
+by repository rules and the shortcut guide. No Limen initialization has been run.
+Before starting workers, deliberately review and integrate `limen init` output:
 
 - `spec/vision.md`, `spec/build.md`, feature lanes;
 - `.agents/limen/styleguide.md`;
