@@ -24,7 +24,7 @@ loader's package discovery paths passed; no workers had been run. A later
 narrow trial with Pi 1.4.0 and Herdr 0.9.5 is recorded below. Upstream's
 last-known-good Pi remains 1.2.0; broader compatibility is unverified.
 
-## Bounded workflow (trialed in a disposable repository only)
+## Bounded workflow (disposable trial and project jobs)
 
 - Pi is the interactive coordinator; Limen owns jobs, worktrees and job state.
 - Herdr supplies visibility; see [Herdr setup](herdr-setup.md). A detached job's
@@ -51,8 +51,10 @@ last-known-good Pi remains 1.2.0; broader compatibility is unverified.
   `openai-codex/gpt-6-astra:high`, not Pi's saved default. Never silently switch
   route on a spawn or continuation. Keep credentials in Pi's private user store
   outside Git. Review auth metadata without `--credentials` or token output.
-- First trial was a documentation task in a disposable Git repository with a
-  committed baseline. Results and remaining gaps are below.
+- The first trial was a documentation task in a disposable Git repository with a
+  committed baseline. Several bounded issue workers later ran in `dev-setup`;
+  this verifies launch and completion here, not coordinator recovery or review.
+  Trial results and remaining gaps are below.
 - Review artifacts and checks, not merely a `done` status. Merging remains
   subject to explicit owner approval.
 
