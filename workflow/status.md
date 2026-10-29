@@ -27,7 +27,9 @@ not an installation procedure.
 
 The portable starter skill at `agents/skills/explain-config/SKILL.md` is available
 for manual editing and explicit file-based use. Harness discovery and Pi runtime
-validation are not configured; `docs/shortcuts.md` has not been generated.
+validation are not configured. The [shortcut guide](../docs/shortcuts.md) now
+covers the main Neovim, Ghostty, and tmux configuration using static inspection
+and selected locked plugin sources; mappings are not runtime-verified.
 
 Keep `profiles/` and `scripts/` empty until those decisions produce
 concrete content. Shared repository instructions stay in AGENTS.md rather than

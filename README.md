@@ -31,6 +31,7 @@ an unvalidated proposal.
 | `workflow/status.md` | Implementation status and open decisions |
 | `agents/skills/` | Portable skill sources; currently `explain-config` |
 | `docs/import-baseline.md` | Import provenance, validation, limitations, and next steps |
+| `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
 
 `profiles/` and `scripts/` are intentionally empty for now: no target
 profile or setup automation has been implemented. Empty
@@ -39,7 +40,9 @@ directories are not tracked by Git. Repository instructions remain in AGENTS.md.
 The starter [explain-config skill](agents/skills/explain-config/SKILL.md) documents
 configuration and shortcuts. It is not installed into a harness discovery path
 or verified in Pi yet. To try it without installation, ask Pi to read that file
-and follow it to create `docs/shortcuts.md`. The guide has not been generated yet.
+and follow it to refresh [the shortcut guide](docs/shortcuts.md). The initial guide
+is based on static configuration and pinned plugin-source inspection, not runtime
+verification.
 
 The imported [README](docs/nvim-config-original-readme.md) is historical: its vim-plug and
 `PlugInstall` instructions do not describe the main configuration's lazy.nvim
