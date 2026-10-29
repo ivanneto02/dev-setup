@@ -8,7 +8,7 @@ mode=preview
 ghostty_dest=
 tools=()
 usage() {
-  printf 'Usage: %s [--home DIR] --tool nvim|ghostty|kitty|tmux [--tool ...] [--ghostty-dest PATH] [--apply]\n' "$0" >&2
+  printf 'Usage: %s [--home DIR] --tool nvim|ghostty [--tool ...] [--ghostty-dest PATH] [--apply]\n' "$0" >&2
   exit 2
 }
 while (($#)); do
@@ -44,12 +44,6 @@ for tool in "${tools[@]}"; do
       [[ -n $ghostty_dest ]] || { echo 'Ghostty needs --ghostty-dest: inspect all active config paths first.' >&2; exit 2; }
       [[ $ghostty_dest = "$target_home/"* && $ghostty_dest != */ && $ghostty_dest != *'/../'* && $ghostty_dest != *'/./'* && $ghostty_dest != *'//'* ]] || { echo 'Ghostty destination must be a direct path under --home without traversal.' >&2; exit 2; }
       sources+=("$root/config/ghostty/config"); destinations+=("$ghostty_dest") ;;
-    kitty)
-      [[ $platform = arch ]] || { echo 'Kitty import has Linux-only settings; do not deploy it on macOS yet.' >&2; exit 2; }
-      add config/kitty/kitty.conf .config/kitty/kitty.conf
-      add config/kitty/theme.conf .config/kitty/theme.conf
-      add config/kitty/current-theme.conf .config/kitty/current-theme.conf ;;
-    tmux) add config/tmux/.tmux.conf .tmux.conf ;;
     *) echo "Unknown tool: $tool" >&2; usage ;;
   esac
 done

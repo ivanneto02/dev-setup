@@ -3,11 +3,12 @@
 ## Scope and evidence
 
 This guide describes the **repository configuration**, not the live machine.
-Inspected the main Neovim configuration, Ghostty and tmux configuration, and
-Neovim plugin lockfile. No application configuration was activated and no
-plugins were installed. **None of these shortcuts is runtime-verified here.**
+Inspected the main Neovim and Ghostty configuration and Neovim plugin lockfile.
+No application configuration was activated and no plugins were installed for
+this guide. Ghostty mappings have a local syntax check, not an interactive test;
+**the shortcuts in this table have not been exercised end to end here.**
 
-The mobile Neovim alternative, Kitty, shell shortcuts, and Pi bindings are out
+The mobile Neovim alternative, archival Kitty and tmux, shell shortcuts, and Pi bindings are out
 of scope. This is not an exhaustive list of application/plugin defaults.
 Herdr is installed with a **live user-only `F12` prefix override**, recorded in
 [Herdr setup](herdr-setup.md#shortcut-ownership). It is not a repository-managed
@@ -18,7 +19,6 @@ Source abbreviations used in the tables (line numbers refer to these files):
 
 - **N**: [`config/nvim/init.lua`](../config/nvim/init.lua)
 - **G**: [`config/ghostty/config`](../config/ghostty/config)
-- **T**: [`config/tmux/.tmux.conf`](../config/tmux/.tmux.conf)
 - Plugin revisions: [`config/nvim/lazy-lock.json`](../config/nvim/lazy-lock.json).
 
 Verification labels:
@@ -26,8 +26,6 @@ Verification labels:
 - **C**: explicitly configured; inspected statically, not tested at runtime.
 - **P**: plugin-generated behavior checked against the locked upstream source;
   still dependent on successful plugin loading.
-- **D**: application default checked in installed documentation, not a live
-  mapping inspection and not a portable guarantee for every version.
 
 ## Reading the keys
 
@@ -186,59 +184,46 @@ consult the pinned sources for the full grammar and text-object definitions.
 ## Ghostty: tabs and splits
 
 These are terminal-level sequences, not Neovim mappings. The table records the
-configured action names; exact version support and key delivery are untested.
+configured action names. Ghostty 1.4.0-arch1 accepts the repository file with
+`+validate-config --config-file`; actual key delivery remains untested.
 
 | Application / context | Key | Configured action | Source | Status |
 | --- | --- | --- | --- | --- |
 | Ghostty / focused terminal | `Ctrl+b → c` | New tab (`new_tab`) | G:26 | C |
 | Ghostty / focused terminal | `Ctrl+b → n` / `p` | Next / previous tab | G:27–28 | C |
 | Ghostty / focused terminal | `Ctrl+b → 0` … `5` | Go to tabs 1 … 6 respectively (`goto_tab:1` … `:6`) | G:31–36 | C |
-| Ghostty / focused terminal | `Ctrl+b → h` / `j` / `k` / `l` | Focus split left / down / up / right | G:39–48 | C |
-| Ghostty / focused terminal | `Ctrl+b → v` | New split **down** | G:51 | C |
-| Ghostty / focused terminal | `Ctrl+b → s` | New split **right** | G:52 | C |
-| Ghostty / focused terminal | `Ctrl+b → x` | Close current surface (`close_surface`) | G:55 | C |
-| Ghostty / focused terminal | `Ctrl+b → z` | Toggle split zoom | G:57 | C |
+| Ghostty / focused terminal | `Ctrl+b → h` / `j` / `k` / `l` | Focus split left / down / up / right | G:39–42 | C |
+| Ghostty / focused terminal | `Ctrl+b → v` | New split **down** | G:45 | C |
+| Ghostty / focused terminal | `Ctrl+b → s` | New split **right** | G:46 | C |
+| Ghostty / focused terminal | `Ctrl+b → x` | Close current surface (`close_surface`) | G:49 | C |
+| Ghostty / focused terminal | `Ctrl+b → z` | Toggle split zoom | G:51 | C |
 
-The navigation quartet is duplicated verbatim at G:39–42 and G:45–48. It does
-not describe two separate navigation layers. Digits are deliberately offset:
+The duplicate navigation quartet was removed without changing its configured
+actions. Digits are deliberately offset:
 `0` targets tab 1. Use the configured directions for `v` and `s`, rather than
 assuming their names imply a particular split direction. Header comments about
 Ghostty's default reload shortcut are not an explicit binding or verified here.
 
-## tmux: panes
+## Terminal ownership
 
-The file does not set `prefix`. The installed tmux **3.8** manual
-(`/usr/share/man/man1/tmux.1.gz`, “DEFAULT KEY BINDINGS” and “KEY BINDINGS”)
-documents default prefix **Ctrl+b** and `bind` without `-T` as using the prefix
-table. This is documentation evidence, not proof of the running server's state;
-other configuration or plugins may change it.
-
-| Application / context | Key | Action | Source | Status |
-| --- | --- | --- | --- | --- |
-| tmux / prefix table | Prefix → `h` | Select left pane | T:2 | C; prefix D |
-| tmux / prefix table | Prefix → `j` | Select lower pane | T:3 | C; prefix D |
-| tmux / prefix table | Prefix → `k` | Select upper pane | T:4 | C; prefix D |
-| tmux / prefix table | Prefix → `l` | Select right pane | T:5 | C; prefix D |
-
-`escape-time` is configured to 10 ms (T:1). TPM is invoked at T:26 and the plugin
-list includes tmux-sensible, tmux2k, and tmux-fzf-session-switch (T:8–17). Their
-code and revisions are not preserved in this repository, so their shortcuts and
-possible overrides are **unresolved**, not silently inferred from current defaults.
-In particular, this guide does not invent a session-switch or TPM-install key.
+Ghostty alone is supported. It owns tabs and splits, while Herdr owns persistent
+workspaces. tmux and Kitty remain archival and are not deployment choices. The
+tmux import retains its default-prefix assumptions and TPM invocation, but is
+not a supported nested layer. See [terminal policy](terminal-policy.md).
 
 ## Conflicts and surprises to validate
 
 | Interaction | Static finding | Runtime status / next check |
 | --- | --- | --- |
-| Ghostty vs Herdr | Herdr defaults to `Ctrl+b`, but the live user config overrides its prefix to `F12`; Ghostty retains `Ctrl+b`. | Herdr config parsed and reloaded; owner confirmed physical F12 delivery. Other terminals remain untested. See [Herdr setup](herdr-setup.md). |
-| Ghostty vs tmux | Both use `Ctrl+b → h/j/k/l` if tmux retains its documented default prefix. Ghostty is the outer input layer and may handle sequences before tmux. | Potential interception, not demonstrated. Compare outside/inside tmux; inspect the actual prefix and prefix-table bindings. |
-| Ghostty/tmux vs completion | `Ctrl+b` is also Neovim completion documentation-scroll. Both outer layers may prevent it reaching Neovim. | Test in a completion menu with documentation visible, with and without tmux. Do not change bindings preemptively. |
+| Ghostty vs Herdr | Herdr defaults to `Ctrl+b`, but the live user config overrides its prefix to `F12`; Ghostty retains `Ctrl+b`. | Herdr config parsed and reloaded; owner confirmed physical F12 delivery. Nested actions remain untested. See [Herdr setup](herdr-setup.md). |
+| Ghostty vs archival tmux | Both would use `Ctrl+b → h/j/k/l` if tmux retained its default prefix. Ghostty is the outer input layer. | Nested tmux is unsupported; interception is not runtime-tested. |
+| Ghostty vs completion | `Ctrl+b` is also Neovim completion documentation-scroll. Ghostty may prevent it reaching Neovim. | Test in a completion menu with documentation visible in Ghostty and Herdr. Do not change bindings preemptively. |
 | Comment operator vs toggler | Normal-mode `\cl` and `\cbl` are overwritten by togglers in the locked plugin setup order. | Source-confirmed collision; inspect effective Normal and Visual mappings after plugin load. |
 | LSP vs comment insertion | Buffer-local `\ca` is a prefix of global `\cal`. | Potential masking/timeout interaction; compare LSP-attached and unattached buffers before declaring both usable. |
 | Format vs file browser | `\f` is a complete mapping and a prefix of `\fb`. | Potential delay or premature formatting with the 300 ms timeout; test both after lazy loading. |
 | Window movement vs snippets | `Ctrl+h/l` navigate windows in Normal, but snippets in Insert/Select. | Intentional mode split, not an exact same-mode collision. Terminal Backspace/Ctrl+h encoding also needs checking. |
 | mini.nvim vs Telescope | `sf`, `sd`, `sh`, `sr` are not `\sf`, `\sd`, `\sh`, `\sr`. | Different sequences; do not confuse bare `s` with leader-prefixed search. |
-| Terminal exit and timing | Double-Escape mapping, Neovim timeout and tmux escape-time interact with terminal key delivery. | Test entering/leaving a Neovim terminal with and without tmux. |
+| Terminal exit and timing | Double-Escape mapping and Neovim timeout depend on terminal key delivery. | Test entering/leaving a Neovim terminal in Ghostty and Herdr. |
 
 ## Validation gaps and safe next checks
 
@@ -250,14 +235,11 @@ In particular, this guide does not invent a session-switch or TPM-install key.
    `:verbose nmap <leader>f`, and `:verbose imap <C-b>`. Repeat before/after an LSP
    attaches and after lazy-loaded plugins activate. `\sk` is the configured
    discovery shortcut once Telescope is working.
-3. In an existing intended tmux server, inspect `tmux show-options -gv prefix`
-   and `tmux list-keys -T prefix`. Review installed plugin code/revisions before
-   documenting plugin shortcuts. Do not source this file merely for inspection:
-   it runs TPM.
-4. Confirm terminal delivery of `Ctrl+Space`, `Ctrl+/`, `Ctrl+h`, Escape, the
+3. Confirm terminal delivery of `Ctrl+Space`, `Ctrl+/`, `Ctrl+h`, Escape, the
    `Ctrl+b` sequences, and Herdr's live `F12` prefix. Test Ghostty alone, then
-   Herdr, tmux, and Neovim as applicable.
-5. Confirm clipboard provider, LSP/formatter availability and Telescope search
+   Ghostty with Herdr and Neovim. Check tab navigation, creation, split focus,
+   creation, close and zoom. No nested GUI test was run for this guide.
+4. Confirm clipboard provider, LSP/formatter availability and Telescope search
    dependencies separately. N:34–36 requests the system clipboard, but this
    does not verify copy/paste functionality on the target OS.
 
