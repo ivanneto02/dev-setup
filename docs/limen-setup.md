@@ -104,8 +104,10 @@ files/credentials remains a trust boundary, not a sandbox guarantee.
 
 ## dev-setup project initialization (2026-10-29)
 
-The owner explicitly authorized `limen init` in this repository after the
-disposable trial. The command created `spec/vision.md`, `spec/build.md`,
+The repository baseline was committed as `9683e05` before project initialization;
+Limen needs at least one commit before a worker starts. The owner explicitly
+authorized `limen init` after the disposable trial. Its output was inspected
+before project guidance was filled in. The command created `spec/vision.md`, `spec/build.md`,
 `spec/features/` templates and lanes, `.agents/limen/styleguide.md`,
 `.pi/extensions/limen.ts`, `.omp/extensions/limen.ts`, and `.gitignore` for
 `/.limen/`. There were no existing files at those paths. It also created

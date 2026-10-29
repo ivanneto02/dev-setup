@@ -1,6 +1,9 @@
 # Initial import baseline
 
-Recorded on 2026-10-29. Scope: repository preparation only.
+Recorded on 2026-10-29 as a **historical import snapshot**. Scope: repository
+preparation only. For current profile decisions and verification, see
+[workflow/status.md](../workflow/status.md); later decisions do not rewrite the
+import evidence below.
 
 ## Provenance and ownership
 
@@ -19,14 +22,16 @@ Recorded on 2026-10-29. Scope: repository preparation only.
 
 ## Machine and activation
 
-The inspection host reports Arch Linux. No target machine or installation profile
-has been selected; this import is not an assertion of Arch compatibility.
+At the time of import, the inspection host reported Arch Linux. No target
+machine or installation profile had been selected; this import did not establish
+Arch compatibility. The owner later selected this Arch host as the current
+inspection target and added two OS profiles, without a default OS.
 
-There are no installation destinations or override rules implemented yet. Files
-in this repository have no precedence over live configuration because nothing
-has been linked or installed. A future setup change must establish target paths,
-inspect existing configuration, define overrides, and provide backups and preview
-before activation.
+At the time of import, there were no installation destinations or override rules.
+The imported files had no precedence over live configuration. Later work added
+[profile ownership rules](profile-ownership.md) and a preview-first deployment
+script; neither action applied imported files to the live host. Activation still
+requires target-path inspection, backups and explicit approval.
 
 ## Observed configuration
 
@@ -53,10 +58,10 @@ terminal behavior, and target compatibility have not been tested. Starting the
 imported Neovim configuration can bootstrap dependencies, so runtime validation
 belongs in a later, explicitly scoped setup task.
 
-Work is on branch `main`, with the baseline left uncommitted. The next step is to
-select the target machine/profile and review installation requirements before
-building setup automation. No upstream compatibility review or upgrades were
-part of this import.
+At the time of import, the baseline on `main` was uncommitted. It was later
+committed in `9683e05`; subsequent setup and profile decisions are recorded in
+[workflow/status.md](../workflow/status.md). No upstream compatibility review
+or upgrades were part of the import itself.
 
 ## Repository reorganization
 

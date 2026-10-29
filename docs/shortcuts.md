@@ -227,6 +227,13 @@ not a supported nested layer. See [terminal policy](terminal-policy.md).
 
 ## Validation gaps and safe next checks
 
+To refresh this guide after a config or plugin-lock change, ask Pi to read
+`agents/skills/explain-config/SKILL.md`, compare the changed sources with these
+tables, and update source lines and verification labels. Do not turn static
+inspection into a runtime claim without a separately authorized application test.
+The tmux/Kitty imports remain archival, so do not re-add them as supported
+shortcuts unless terminal policy changes.
+
 1. First decide the target profile and confirm which configuration paths are
    actually loaded. No live installation is implied by files being in Git.
 2. In a separately authorized, isolated runtime test, inspect effective mappings
