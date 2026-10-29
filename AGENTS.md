@@ -146,6 +146,21 @@ credential access. Use an actual restricted execution environment when required.
 Do not merge, publish, deploy, purchase, or alter external accounts unless the
 user's instructions authorize that action.
 
+Disclose significant Pi-assisted changes, including work by Pi-run subagents:
+
+- Add `AI-assisted: Pi` as a footer to commit messages Pi authors, and as a final
+  line in issues, issue comments, pull requests, release notes, and other
+  published text Pi creates or substantially edits. Do not rely on a label.
+- A Git push has no message field. Report a Pi-run push with its destination and
+  commit hashes in the completion report; the pushed Pi-authored commits carry
+  the footer. Do not rewrite human-authored commits just to add disclosure.
+- For significant live configuration or other non-Git changes, include the same
+  disclosure in the completion report and any durable change record. Do not add
+  markers to executable configuration where they could change behavior.
+
+Do not claim human review unless it happened. Do not alter earlier human-authored
+content merely to add attribution; disclose assistance in a new update instead.
+
 ## Context and handoffs
 
 Durable project state must not depend on a single conversation.
