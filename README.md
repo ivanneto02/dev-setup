@@ -13,13 +13,19 @@ owned by this repository, not submodules or links to live configuration.
 
 None of the imported configurations has been linked or applied to the machine.
 Pi, Limen's CLI, and Herdr are installed at user level on this host; see
-[the Limen trial plan](docs/limen-setup.md) and
+[the Limen trial results](docs/limen-setup.md) and
 [Herdr installation and usage](docs/herdr-setup.md). Herdr's bundled Pi integration
-is installed, but live agent visibility and recovery remain untested. No Herdr
-server is running from this installation, and no Limen project hooks or workers
-have been activated. There is no setup script or implemented
-`workflow update` command yet. The complete candidate stack in AGENTS.md remains
-an unvalidated proposal.
+is installed; a running Herdr server and a disposable Limen worker/continuation
+were observed on this host. Herdr's live user config now uses `F12` as its prefix
+instead of conflicting with Ghostty's unchanged `Ctrl+b` shortcuts; the owner
+verified the F12 keypress. Limen is now initialized in this repository, with
+project hook stubs, planning files and ignored runtime state. A fresh Pi launch
+(or `/reload`) is needed to load the project hook in a session; no worker has
+run in `dev-setup` and recovery remains untested. A selective, preview-first
+[configuration deployment script](docs/deploy-config.md) now supports Arch and
+macOS file linking, but does not install tools or validate the full stack.
+`workflow update` remains unavailable. The candidate stack has a narrow
+successful trial, not full validation.
 
 | Path | Contents |
 | --- | --- |
@@ -32,21 +38,31 @@ an unvalidated proposal.
 | `config/tmux/.tmux.conf` | Imported tmux configuration |
 | `preferences.md` | Durable environment preferences |
 | `workflow/status.md` | Implementation status and open decisions |
+| `spec/` | Limen project vision, board, and feature lanes (planning committed to Git) |
+| `.agents/limen/styleguide.md` | Limen project writing conventions; `AGENTS.md` remains authoritative |
+| `.pi/extensions/limen.ts`, `.omp/extensions/limen.ts` | Limen package hook loaders for Pi and OMP (OMP unused) |
+| `.gitignore` | Ignores Limen's `.limen/` runtime state |
 | `agents/skills/` | Portable skill sources: `explain-config` and `end-to-end` |
+| `.agents/skills/deploy-config/SKILL.md` | Project-discoverable deployment skill (separate from portable skill sources) |
+| `scripts/deploy-config.sh` | Selective, preview-first user-file deployment for Arch and macOS |
+| `docs/deploy-config.md` | Destinations, approval, validation, limits, and rollback |
 | `docs/import-baseline.md` | Import provenance, validation, limitations, and next steps |
 | `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
 | `docs/herdr-setup.md` | Herdr installation, Pi integration, usage, validation limits, and recovery |
 
-`profiles/` and `scripts/` are intentionally empty for now: no target
-profile or setup automation has been implemented. Empty
-directories are not tracked by Git. Repository instructions remain in AGENTS.md.
+`profiles/` is intentionally empty: no target-machine profile is established.
+`scripts/` contains only selective user-file activation, not tool installation
+or a complete setup. Empty directories are not tracked by Git. Repository
+instructions remain in AGENTS.md.
 
 The [explain-config skill](agents/skills/explain-config/SKILL.md) documents
 configuration and shortcuts; the [end-to-end skill](agents/skills/end-to-end/SKILL.md)
 guides autonomous implementation while requiring explicit approval before live
 environment changes. These are repository sources, not installed into a harness
 discovery path or verified in Pi. To use either without installation, ask Pi to
-read its `SKILL.md` and follow it. The initial shortcut guide is based on static
+read its `SKILL.md` and follow it. The `deploy-config` skill is in Pi's project
+skill discovery path and appeared in a trusted Pi startup on this Arch host;
+existing sessions need `/reload`. Invocation has not been tested on macOS. The initial shortcut guide is based on static
 configuration and pinned plugin-source inspection, not runtime verification.
 
 The imported [README](docs/nvim-config-original-readme.md) is historical: its vim-plug and

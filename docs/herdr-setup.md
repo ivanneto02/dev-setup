@@ -10,9 +10,9 @@ Herdr merely because it offers those commands.
 Limen documents detached workers launched in Herdr as **log-tail tabs**, not
 interactive agent terminals. Its `--tab` mode is for interactive hosted workers.
 Herdr does not automatically discover and display every arbitrary background
-process launched elsewhere. The intended path is to start the coordinator in a
-Herdr pane and let Limen create the job views. This path has not yet been tested
-in this setup; Limen project initialization is still pending.
+process launched elsewhere. The tested path starts the coordinator in a Herdr pane and lets Limen create
+log-tail job views. A disposable-repository trial confirmed that path; Limen
+has not been initialized in `dev-setup`.
 
 Closing a client/detaching leaves the Herdr server's terminal processes running.
 A machine/server restart does not preserve the original processes. Supported
@@ -36,9 +36,11 @@ validated before relying on it for unattended work.
 No pre-existing binary or integration file was replaced. The binary was fetched
 to a temporary staging directory, checksum-verified, then installed with mode
 755. No sudo, package-manager changes, shell edits, remote access, login service,
-or worker/model calls were involved. No Herdr configuration file was authored.
-Herdr reports its default config path as `~/.config/herdr/config.toml`; runtime
-logs/session data belong outside this repository.
+or worker/model calls were involved. At installation no Herdr configuration file was authored. For the later trial,
+`~/.config/herdr/config.toml` was updated with `[keys] prefix = "f12"` and backed
+up as `~/.config/herdr/config.toml.pre-f12-20261029125402`. This is a live,
+user-owned setting, not installed from this repository. Runtime logs/session
+data belong outside this repository.
 
 The extension is owned by the installed Herdr release, not copied into this repo.
 Reinstalling/updating the integration replaces it; put any future custom
@@ -75,28 +77,24 @@ herdr agent list
 herdr integration status
 ```
 
-Detach with `Ctrl+b`, release, then `q`; run `herdr` again to reattach. These are
-upstream defaults, not runtime-verified shortcuts here. To **stop the server and
-its panes**, use `herdr server stop` only after intentionally stopping or handing
+With the live user prefix override, detach with `F12`, release, then `q`; run
+`herdr` again to reattach. The owner confirmed that F12 reaches Herdr; the
+detach sequence itself has not been tested. The upstream default is `Ctrl+b → q`.
+To **stop the server and its panes**, use `herdr server stop` only after
+intentionally stopping or handing
 off active work. Detaching and stopping are not interchangeable.
 
-## Shortcut conflict: decide before relying on keyboard navigation
+## Shortcut ownership
 
-Herdr 0.9.5's `--default-config` documents a `Ctrl+b` prefix. The repository's
-[`config/ghostty/config`](../config/ghostty/config) defines the same prefix and
-many matching suffixes, including `c`, `n`, `p`, `h/j/k/l`, `v`, `x`, and `z`.
-Ghostty may handle these before Herdr sees them. tmux's documented default prefix
-is also Ctrl+b. No live collision was demonstrated and no shortcuts were changed.
-
-There are semantic differences too: Ghostty's `Ctrl+b → v` requests a split down,
-whereas Herdr's documented `Ctrl+b → v` splits right; Ghostty's `Ctrl+b → s`
-splits right, whereas Herdr uses that sequence for settings. Prefer mouse menus
-until the active terminal configuration is checked and prefix ownership chosen.
-
-Recommended direction for a later authorized configuration change: let Herdr own
-multiplexer navigation in agent workspaces, then either remove overlapping
-Ghostty sequences or choose a distinct Herdr prefix. Avoid nesting tmux for the
-first trial. See [the shortcut guide](shortcuts.md) for the existing mappings.
+Ghostty retains its existing `Ctrl+b` tab/pane bindings, including the active
+`~/.config/ghostty/config.ghostty`; neither Ghostty file was changed for the trial.
+Herdr now has `F12` as its prefix in the live user config noted above, replacing
+its default `Ctrl+b`. `herdr config check` passed and `herdr server reload-config`
+reported `applied` without diagnostics. The owner confirmed the physical F12
+keypress reaches Herdr. If another terminal intercepts F12, choose another
+Herdr prefix rather than removing familiar Ghostty mappings. tmux still defaults
+to `Ctrl+b` if run nested; the Ghostty/tmux overlap remains. See the
+[shortcut guide](shortcuts.md).
 
 ## Validation and remaining work
 
@@ -109,24 +107,23 @@ Verified:
   calling its factory outside Herdr is a no-op, as intended.
 - Pi 1.4.0's installed extension API declares the used `tui` mode and
   `agent_settled` event.
-- `herdr status server` reports **not running** after installation checks.
+- At installation, `herdr status server` reported **not running**; during the
+  later trial the server was running and reported compatible.
 
 A direct `/usr/bin/node --check` attempt rejected TypeScript annotations; that is
 not a valid check for this extension in that invocation. The successful Pi-loader
 check above replaced it. This was not an end-to-end Pi/Herdr integration test.
 
-Still unverified: interactive rendering, selection/copy behavior inside nested
-TUIs, live lifecycle reporting, detach/reattach, session recovery, and Limen's
-log-tail tabs. Limen's installed setup guide records Pi 1.2.0 and Herdr 0.9.1 as
-last known-good, not the installed Pi 1.4.0 / Herdr 0.9.5 combination.
+On 2026-10-29, Pi 1.4.0 in Herdr 0.9.5 spawned a Limen documentation worker
+in a disposable repo. Herdr showed its separate log-tail workspace/tab while a
+continuation was running; Limen recorded the tab closing on completion. The
+worker and a continuation finished; a second continuation was stopped, with
+Limen recording a process-group interruption. See [Limen trial results](limen-setup.md).
 
-Next trial: initialize Limen deliberately in a disposable committed repository,
-start its coordinator in Herdr, and run one bounded documentation job. Explicitly
-pass the approved provider, `gpt-6-astra`, and `medium`; keep the one-job,
-10-minute, 50-tool-call trial policy in [Limen setup](limen-setup.md). Inspect the
-log tab, result, diff, stop/continue behavior, and cleanup before expanding use.
-Do not enable services, remote machines, or additional agent integrations for
-this trial.
+Still unverified: selection/copy in nested TUIs, Pi lifecycle badge transitions
+during a model turn, detach/reattach, and session recovery. Limen's upstream last-known-good versions remain Pi 1.2.0
+and Herdr 0.9.1, so this trial demonstrates a narrow working path, not general
+compatibility.
 
 ## Update and recovery
 
@@ -136,6 +133,13 @@ release's official asset digest, back up the existing binary, and replace it onl
 after verification. Re-run version and integration checks and update this record.
 The built-in `herdr update` exists but was not run. Avoid updating a running server
 until its work is safely stopped or its handoff behavior has been tested.
+
+To undo only the trial's prefix change (without uninstalling Herdr), first
+compare the current file with the backup, then restore
+`~/.config/herdr/config.toml.pre-f12-20261029125402` over
+`~/.config/herdr/config.toml`, run `herdr config check`, and run
+`herdr server reload-config`. This returns Herdr to its default `Ctrl+b`
+prefix, which overlaps Ghostty. Preserve any later edits before restoring.
 
 To undo this installation:
 

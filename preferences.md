@@ -12,9 +12,11 @@ is recorded in [workflow/status.md](workflow/status.md).
   document tool responsibilities, shortcuts, configuration sources, and recovery.
 - Keep workflows portable across agent harnesses and avoid overlapping ownership
   of delegation, job state, and completion tracking.
-- Favor the least expensive model that reliably handles the task. Subscription
-  access, paid API usage, and local inference are distinct choices; no paid API
-  switch or spending increase is implicitly authorized.
+- Favor the least expensive model that reliably handles the task. ChatGPT-plan
+  OAuth access uses plan limits, not a separately billed API-key route; still
+  conserve tokens and rate limits. Verify each route rather than inferring
+  billing from its provider name. No switch to separately billed API usage or
+  paid extra usage is implicitly authorized.
 - Focus on local development. Remote development, Tailscale, and repurposing
   another laptop remain deferred.
 

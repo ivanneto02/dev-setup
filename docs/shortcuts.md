@@ -9,10 +9,10 @@ plugins were installed. **None of these shortcuts is runtime-verified here.**
 
 The mobile Neovim alternative, Kitty, shell shortcuts, and Pi bindings are out
 of scope. This is not an exhaustive list of application/plugin defaults.
-Herdr was installed later; its default prefix and Ghostty conflicts are recorded
-in [Herdr setup](herdr-setup.md#shortcut-conflict-decide-before-relying-on-keyboard-navigation).
-Those defaults have not been adopted as repository-managed mappings or verified
-interactively.
+Herdr is installed with a **live user-only `F12` prefix override**, recorded in
+[Herdr setup](herdr-setup.md#shortcut-ownership). It is not a repository-managed
+mapping; the owner verified physical F12 delivery to Herdr. Ghostty's live
+`Ctrl+b` bindings were left unchanged.
 
 Source abbreviations used in the tables (line numbers refer to these files):
 
@@ -230,7 +230,7 @@ In particular, this guide does not invent a session-switch or TPM-install key.
 
 | Interaction | Static finding | Runtime status / next check |
 | --- | --- | --- |
-| Ghostty/tmux vs Herdr | Installed Herdr 0.9.5 also defaults to `Ctrl+b`, with overlapping navigation sequences. Some meanings differ (notably `v` and `s`). | Documented defaults only; see [Herdr setup](herdr-setup.md). Test and choose prefix ownership before relying on nested keyboard navigation. |
+| Ghostty vs Herdr | Herdr defaults to `Ctrl+b`, but the live user config overrides its prefix to `F12`; Ghostty retains `Ctrl+b`. | Herdr config parsed and reloaded; owner confirmed physical F12 delivery. Other terminals remain untested. See [Herdr setup](herdr-setup.md). |
 | Ghostty vs tmux | Both use `Ctrl+b → h/j/k/l` if tmux retains its documented default prefix. Ghostty is the outer input layer and may handle sequences before tmux. | Potential interception, not demonstrated. Compare outside/inside tmux; inspect the actual prefix and prefix-table bindings. |
 | Ghostty/tmux vs completion | `Ctrl+b` is also Neovim completion documentation-scroll. Both outer layers may prevent it reaching Neovim. | Test in a completion menu with documentation visible, with and without tmux. Do not change bindings preemptively. |
 | Comment operator vs toggler | Normal-mode `\cl` and `\cbl` are overwritten by togglers in the locked plugin setup order. | Source-confirmed collision; inspect effective Normal and Visual mappings after plugin load. |
@@ -254,8 +254,9 @@ In particular, this guide does not invent a session-switch or TPM-install key.
    and `tmux list-keys -T prefix`. Review installed plugin code/revisions before
    documenting plugin shortcuts. Do not source this file merely for inspection:
    it runs TPM.
-4. Confirm terminal delivery of `Ctrl+Space`, `Ctrl+/`, `Ctrl+h`, Escape, and the
-   `Ctrl+b` sequences. Test Ghostty alone, then tmux, then Neovim.
+4. Confirm terminal delivery of `Ctrl+Space`, `Ctrl+/`, `Ctrl+h`, Escape, the
+   `Ctrl+b` sequences, and Herdr's live `F12` prefix. Test Ghostty alone, then
+   Herdr, tmux, and Neovim as applicable.
 5. Confirm clipboard provider, LSP/formatter availability and Telescope search
    dependencies separately. N:34–36 requests the system clipboard, but this
    does not verify copy/paste functionality on the target OS.

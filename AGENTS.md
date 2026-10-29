@@ -205,9 +205,19 @@ A recommendation to keep the current setup is a successful maintenance result.
 ## Models and resource use
 
 - Configure model choices by role rather than scattering model IDs in scripts.
-- Distinguish subscription access, API billing, and local inference.
+- Distinguish subscription access, separately billed API usage, and local inference.
+  A model request over a provider API authenticated with a ChatGPT subscription
+  OAuth credential is not, for this policy, a switch to separately billed API-key
+  usage. Check the actual credential type and route; OAuth alone does not prove
+  every plan's entitlement or rule out paid extra usage.
 - Verify authentication and entitlement support before relying on a provider.
-- Never silently switch to paid API usage or increase an agreed spending limit.
+  When a subscription route is verified for the task, authorized subagents may
+  use it without separate approval for each worker. Do not assume a past
+  task-specific model choice is a permanent default for unrelated work.
+- Never silently switch to separately billed API usage, enable paid extra usage,
+  or increase an agreed spending limit. Ask first when the route or billing is
+  uncertain. Conserve subscription-plan tokens and rate limits: delegate only
+  when useful, bound worker time and concurrency, and avoid redundant calls.
 - Prefer the least expensive model that reliably meets the task's requirements.
 - Escalate to stronger models when complexity or observed failures justify it.
 - Configure explicit concurrency and execution limits.
