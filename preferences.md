@@ -18,14 +18,16 @@ is recorded in [workflow/status.md](workflow/status.md).
   execution policy live in [workflow/model-policy.md](workflow/model-policy.md);
   verify the route rather than inferring billing from its provider name.
 - Support Arch Linux and macOS as distinct OS profiles without choosing a
-  default target machine. Ghostty is the supported terminal and keeps Ctrl+b;
+  default target machine. The Arch host running this Pi session is the current
+  target for inspection, not an authorization to deploy. Ghostty is the
+  supported terminal and keeps Ctrl+b;
   Herdr handles persistence with F12. tmux and Kitty are unsupported historical
   imports. Bash is the intended shell, but its imported config needs repair
   before deployment.
 - Focus on local development. Remote development, Tailscale, and repurposing
   another laptop remain deferred.
 
-No default target machine or OS/version, macOS restrictions, or separately
-billed spending budget has been established. Do not interpret these preferences
+No default target machine, macOS version/restrictions, or separately billed
+spending budget has been established. Do not interpret these preferences
 as permission to change live system settings or apply configuration without an
 exact preview and approval.

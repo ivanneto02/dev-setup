@@ -16,9 +16,10 @@ and [model policy](model-policy.md) for decisions and boundaries.
 | Herdr | 0.9.5 with Pi integration v9; live user config F12 prefix confirmed by owner. Detached Limen jobs open log-tail tabs in a worker workspace, not recognized agent panes; tabs close after completion. See [visibility guide](../docs/herdr-setup.md#finding-limen-workers-in-herdr). |
 | Deploy script | `scripts/deploy-config.sh` previews/links only Neovim and Ghostty user files on Arch/macOS after explicit target selection and approval. Temporary-home Arch checks passed; Mac runtime and live deployment remain untested. |
 
-`profiles/arch-linux.md` and `profiles/macos.md` describe two OS choices. The owner
-intentionally left the default target machine/OS unspecified; select and inspect
-the actual machine before activation. No full installation automation exists, and
+`profiles/arch-linux.md` and `profiles/macos.md` describe two OS choices. The
+owner identified this Arch host as the current target for inspection, but left
+the default machine/OS unspecified. This selection is not deployment approval;
+inspect the exact live destinations and restrictions before activation. No full installation automation exists, and
 none of the imported tool configurations was deployed by this repository.
 `workflow update` is proposed and **not implemented**.
 

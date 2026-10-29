@@ -55,8 +55,9 @@ successful trial, not full validation.
 | `docs/shortcuts.md` | Source-cited Neovim, Ghostty, and tmux shortcuts, potential conflicts, and validation gaps |
 | `docs/herdr-setup.md` | Herdr installation, Pi integration, usage, validation limits, and recovery |
 
-`profiles/` contains candidate Arch and macOS OS profiles; no default machine
-is selected. `scripts/` contains only selective user-file activation, not tool installation
+`profiles/` contains Arch and macOS OS profiles. This Arch host is the selected
+current inspection target, but no default machine is set and no deployment was
+authorized by that selection. `scripts/` contains only selective user-file activation, not tool installation
 or a complete setup. Empty directories are not tracked by Git. Repository
 instructions remain in AGENTS.md.
 
