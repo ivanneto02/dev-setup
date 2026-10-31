@@ -45,6 +45,8 @@ Verification labels:
 | Application / context | Key | Action | Source | Status |
 | --- | --- | --- | --- | --- |
 | Neovim / Normal | `Esc` | Clear search highlighting | N:93 | C |
+| Neovim / Normal, Insert | `Ctrl+Delete` | Delete the word ahead of the cursor | N:1073–1074 | C |
+| Neovim / Insert | `Ctrl+Backspace` | Delete the word before the cursor (`Ctrl+W` behavior); requires Ghostty's distinct key sequence | N:1075; G:45 | C |
 | Neovim / Normal | `\q` | Populate/open diagnostics in the **location list** (despite the mapping description saying “Quickfix”) | N:96 | C |
 | Neovim / Terminal-input | `Esc → Esc` | Leave terminal input mode via `Ctrl+\`, `Ctrl+n`; does not stop the shell | N:104 | C |
 | Neovim / Normal | `Ctrl+h` / `Ctrl+j` / `Ctrl+k` / `Ctrl+l` | Focus left / lower / upper / right editor window | N:116–119 | C |

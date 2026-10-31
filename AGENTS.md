@@ -109,6 +109,10 @@ harness-specific configuration behind clearly identified adapters.
 
 Work independently on authorized, reversible tasks.
 
+Before starting a task, check the available skills, including project skills in
+`.agents/skills/`. Use a relevant skill when its description matches the task;
+read its instructions when selected.
+
 Use available CLI tools proactively within the authorized task. Prefer `git`
 for local repository operations, `gh` for GitHub operations, and `rg` for file
 and text searches. These are examples, not an exhaustive list; no skill is

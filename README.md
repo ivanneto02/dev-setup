@@ -45,8 +45,8 @@ successful trial, not full validation.
 | `.agents/limen/styleguide.md` | Limen project writing conventions; `AGENTS.md` remains authoritative |
 | `.pi/extensions/limen.ts`, `.omp/extensions/limen.ts` | Limen package hook loaders for Pi and OMP (OMP unused) |
 | `.gitignore` | Ignores Limen's `.limen/` runtime state |
-| `agents/skills/` | Portable skill sources: `explain-config` and `end-to-end` |
-| `.agents/skills/deploy-config/SKILL.md` | Project-discoverable deployment skill (separate from portable skill sources) |
+| `agents/skills/` | Authoritative sources for `explain-config`, `end-to-end`, and `make-skill` |
+| `.agents/skills/` | Project skill discovery: links to those sources, plus `deploy-config` |
 | `scripts/deploy-config.sh` | Selective, preview-first user-file deployment for Arch and macOS |
 | `scripts/limen-oauth.sh` | Bounded OAuth-only worker/reviewer launch; not a billing guarantee |
 | `scripts/test-*.sh` | Disposable-home deployment and mocked-auth launch checks |
@@ -64,11 +64,18 @@ instructions remain in AGENTS.md.
 The [explain-config skill](agents/skills/explain-config/SKILL.md) documents
 configuration and shortcuts; the [end-to-end skill](agents/skills/end-to-end/SKILL.md)
 guides autonomous implementation while requiring explicit approval before live
-environment changes. These are repository sources, not installed into a harness
-discovery path or verified in Pi. To use either without installation, ask Pi to
-read its `SKILL.md` and follow it. The `deploy-config` skill is in Pi's project
-skill discovery path and appeared in a trusted Pi startup on this Arch host;
-existing sessions need `/reload`. Invocation has not been tested on macOS. The initial shortcut guide is based on static
+environment changes; [make-skill](agents/skills/make-skill/SKILL.md) guides skill
+creation and improvement. The [leave-pr-comment skill](agents/skills/leave-pr-comment/SKILL.md)
+guides concise, evidence-based PR comments with an AI-assistance footer. The
+[diagnose-problem skill](agents/skills/diagnose-problem/SKILL.md) guides
+cross-source investigation of bugs, errors, and broken workflows. These two
+are repository sources only; they have not been linked into project skill
+discovery. Relative links under `.agents/skills/` expose the other three
+sources to Codex project skill discovery without duplicating their contents.
+They have not been verified in a fresh Codex or Pi session. The `deploy-config`
+skill is also in that discovery path and appeared in a trusted Pi startup on
+this Arch host; existing Pi sessions need `/reload`. Invocation has not been
+tested on macOS. The initial shortcut guide is based on static
 configuration and pinned plugin-source inspection, not runtime verification.
 
 The imported [README](docs/nvim-config-original-readme.md) is historical: its vim-plug and

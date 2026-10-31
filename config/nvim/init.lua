@@ -1069,5 +1069,10 @@ require("lazy").setup({
 	},
 })
 
+-- Delete the word ahead of the cursor, including from Insert mode.
+vim.keymap.set("n", "<C-Del>", "dw", { desc = "Delete word ahead" })
+vim.keymap.set("i", "<C-Del>", "<C-o>dw", { desc = "Delete word ahead" })
+vim.keymap.set("i", "<C-BS>", "<C-w>", { desc = "Delete word behind" })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
